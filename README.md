@@ -31,6 +31,17 @@
 ### pip install streamlit
 
 
+## 약간의 수정
+
+### Crawling/TopCoinsByExchangeVolume.py -> crawlingTopCoinsByExchangeVolume() 함수에서
+
+원하는 url 로 수정할것.
+
+### https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서 
+
+%USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성할것.
+
+
 ## 실행 방법
 
 ### WebAPI, 웹 스크래핑
