@@ -18,28 +18,29 @@
 
 ## 필요한 패키지 설치
 
-### pip install beautifulsoup4
-### pip install selenium
-### pip install webdriver-manager
-### pip install fastapi
-### pip install uvicorn[standard]
-### pip install tensorflow
-### pip install pillow
-### pip install numpy
-### pip install python-multipart
-### pip install python-telegram-bot
-### pip install streamlit
+pip install beautifulsoup4
+pip install selenium
+pip install webdriver-manager
+pip install fastapi
+pip install uvicorn[standard]
+pip install tensorflow
+pip install pillow
+pip install numpy
+pip install python-multipart
+pip install python-telegram-bot
+pip install streamlit
+pip install snowflake-connector-python
 
 
 ## 약간의 수정
 
-#### Crawling/TopCoinsByExchangeVolume.py -> crawlingTopCoinsByExchangeVolume() 함수에서
+Crawling/TopCoinsByExchangeVolume.py -> crawlingTopCoinsByExchangeVolume() 함수에서
 
-#### 원하는 url 로 수정할것.
+원하는 url 로 수정할것.
 
-#### https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서 
+https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서 
 
-#### %USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성할것.
+%USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성할것.
 
 
 ## 실행 방법
