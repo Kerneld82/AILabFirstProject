@@ -19,16 +19,27 @@
 ## 필요한 패키지 설치
 
 pip install beautifulsoup4
+
 pip install selenium
+
 pip install webdriver-manager
+
 pip install fastapi
+
 pip install uvicorn[standard]
+
 pip install tensorflow
+
 pip install pillow
+
 pip install numpy
+
 pip install python-multipart
+
 pip install python-telegram-bot
+
 pip install streamlit
+
 pip install snowflake-connector-python
 
 
