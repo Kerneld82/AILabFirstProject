@@ -95,8 +95,6 @@ create or replace TABLE BITDUCK.FIRSTPROJECT.TOPCOINSBYEXCHANGEVOLUME (
 
 
 ### Streamlit 웹페이지
-Streamlit 폴더에서,
-
 streamlit run app.py
 
 ### 텔레그램 봇 서비스
