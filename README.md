@@ -11,6 +11,9 @@ sarakael715@gmail.com
  - 가상화폐 및 블록체인 뉴스 분석 페이지
  - 상세 분석 페이지
 
+dksjj123@gmail.com
+ -
+ 
 kerneld@naver.com
  - 국내 5대 거래소에서의 거래량 Top20 페이지
 ```
