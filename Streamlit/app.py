@@ -308,11 +308,17 @@ elif page == "상세 분석":
 elif page == "국내 5대 거래소에서의 거래량 Top20":
     st.title('국내 5대 거래소에서의 거래량 Top20')
 
-    #df = getTopCoinsByExchangeVolume_WebApi()
-    df = getTopCoinsByExchangeVolume_DB()
+    sourceType = st.sidebar.radio("소스 유형", ["DB", "WebAPI"])
+    
+    df = None
+    
+    if sourceType == "DB":
+        df = getTopCoinsByExchangeVolume_DB()
+    elif sourceType == "WebAPI":
+        df = getTopCoinsByExchangeVolume_WebApi()
 
     if df is not None:
-            st.dataframe(
+        st.dataframe(
             df,
             use_container_width = True,
             column_config = {
