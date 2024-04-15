@@ -4,7 +4,12 @@
 
 특정 코인 정보 사이트에서 크롤링한 코인 정보를 웹API 로 제공.
 
+## 팀원 이메일
 
+```
+kerneld@naver.com
+TODO
+```
 
 ## Web API 목록
 
@@ -28,6 +33,10 @@ pip install python-multipart
 pip install python-telegram-bot
 pip install streamlit
 pip install snowflake-connector-python
+pip install wordcloud
+pip install gensim
+pip install pyldavis
+pip install scipy==1.12
 ```
 
 ## 약간의 소스코드 수정
