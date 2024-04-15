@@ -52,13 +52,12 @@ pip install snowflake-connector-python
 
 * https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서 %USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성할것.
 
+```
 [myconnection]
-
 account = "어카운트~"
-
 user = "아이디~"
-
 password = "패스워드~"
+```
 
 * COINS DB 생성
 
