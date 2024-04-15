@@ -7,8 +7,8 @@
 ## 팀원 이메일
 
 ```
+sarakael715@gmail.com
 kerneld@naver.com
-TODO
 ```
 
 ## Web API 목록
