@@ -64,8 +64,8 @@ def getTopCoinsByExchangeVolume_DB():
         )
         
         cursor = conn.cursor()
-        cursor.execute("USE DATABASE COINS")
-        cursor.execute("USE SCHEMA TOPCOINSBYEXCHANGEVOLUME")
+        cursor.execute("USE DATABASE BITDUCK")
+        cursor.execute("USE SCHEMA FIRSTPROJECT")
 
         # 가장 최신 날짜시간 구하기
         query = """

@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import snowflake.connector as sf
 import time
+from KeyStore import KeyStore
 
 lock = threading.Lock()
 crawlingResultList = []
@@ -22,8 +23,8 @@ def insertToDb(infoList):
         )
         
         cursor = conn.cursor()
-        cursor.execute("USE DATABASE COINS")
-        cursor.execute("USE SCHEMA TOPCOINSBYEXCHANGEVOLUME")
+        cursor.execute("USE DATABASE BITDUCK")
+        cursor.execute("USE SCHEMA FIRSTPROJECT")
 
         inputDate = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
@@ -56,8 +57,7 @@ def crawlingTopCoinsByExchangeVolume():
     while True:
         print("Start crawling..")
         
-        # TODO 크롤링할 URL 입력.
-        url = 'https://~~~~'
+        url = KeyStore.TopCoinsByExchangeVolumeUrl
         browser.get(url)
         time.sleep(3)   # TODO 더 좋은 방법이 없을까..
 

@@ -12,7 +12,7 @@ sarakael715@gmail.com
  - 상세 분석 페이지
 
 dksjj123@gmail.com
- -
+ - 텔레그램 봇
 
 cchok0330@naver.com
  - 
@@ -47,16 +47,18 @@ pip install wordcloud
 pip install gensim
 pip install pyldavis
 pip install scipy==1.12
+pip install pyglet
+pip install gtts
 ```
 
 ## 약간의 소스코드 수정
 
-* Crawling/TopCoinsByExchangeVolume.py -> crawlingTopCoinsByExchangeVolume() 함수에서 원하는 url 로 수정할것.
+* KeyStore/KeyStore.py 에서 자신의 환경에 맞게 값 수정.
 
 
 ## Snowflake 에서의 준비 작업
 
-* https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서 %USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성할것.
+* https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서 %USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성.
 
 ```
 [myconnection]
@@ -65,14 +67,14 @@ user = "아이디~"
 password = "패스워드~"
 ```
 
-* COINS DB 생성
+* BITDUCK DB 생성
 
-* TOPCOINSBYEXCHANGEVOLUME Schema 생성
+* FIRSTPROJECT Schema 생성
 
 * TOPCOINSBYEXCHANGEVOLUME Table 생성
 
 ```
-create or replace TABLE COINS.TOPCOINSBYEXCHANGEVOLUME.TOPCOINSBYEXCHANGEVOLUME (
+create or replace TABLE BITDUCK.FIRSTPROJECT.TOPCOINSBYEXCHANGEVOLUME (
 	INPUTDATE TIMESTAMP_NTZ(9) NOT NULL,
 	RANK NUMBER(38,0) NOT NULL,
 	ICONURL VARCHAR(16777216),
@@ -91,10 +93,15 @@ create or replace TABLE COINS.TOPCOINSBYEXCHANGEVOLUME.TOPCOINSBYEXCHANGEVOLUME 
 
 ## 실행 방법
 
-### WebAPI, 웹 스크래핑
-python main.py
 
 ### Streamlit 웹페이지
 Streamlit 폴더에서,
 
 streamlit run app.py
+
+### 텔레그램 봇 서비스
+python TelegramBotMain.py
+
+### WebAPI, 웹 스크래핑
+python FastApiMain.py
+
