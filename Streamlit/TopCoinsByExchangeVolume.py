@@ -25,7 +25,7 @@ def getTopCoinsByExchangeVolume_WebApi():
 
             for jsonData in jsonDataList:
                 iconUrlList.append(jsonData['iconUrl'])
-                nameList.append( f'{jsonData['name']} {jsonData['abbrName']}')
+                nameList.append( f"{jsonData['name']} {jsonData['abbrName']}")
                 priceList.append(jsonData['price'])
                 oneHourDeltaList.append(jsonData['oneHourDelta'])
                 oneDayDeltaList.append(jsonData['oneDayDelta'])
