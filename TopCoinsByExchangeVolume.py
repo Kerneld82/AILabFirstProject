@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 import snowflake.connector as sf
+from KeyStore import KeyStore
 
 def getTopCoinsByExchangeVolume_WebApi():
     try:
@@ -56,11 +57,10 @@ def getTopCoinsByExchangeVolume_WebApi():
 
 def getTopCoinsByExchangeVolume_DB():
     try:
-        # TODO
-        # https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서
-        # %USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성할것.
         conn = sf.connect(
-            connection_name="myconnection",
+            account = KeyStore.SnowflakeAccount,
+            user = KeyStore.SnowflakeUser,
+            password = KeyStore.SnowflakePassword,
         )
         
         cursor = conn.cursor()

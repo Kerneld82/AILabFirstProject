@@ -58,15 +58,6 @@ pip install gtts
 
 ## Snowflake 에서의 준비 작업
 
-* https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서 %USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성.
-
-```
-[myconnection]
-account = "어카운트~"
-user = "아이디~"
-password = "패스워드~"
-```
-
 * BITDUCK DB 생성
 
 * FIRSTPROJECT Schema 생성

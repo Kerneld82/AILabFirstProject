@@ -18,3 +18,8 @@ Telegram_chat_id = -1
 # 네이버 OpenAPI
 NaverOpenAPI_ClientId = "aa..."
 NaverOpenAPI_ClientSecret = "bb.."
+
+# Snowflake
+SnowflakeAccount = "P..-C.."
+SnowflakeUser = "id.."
+SnowflakePassword = "pw..."

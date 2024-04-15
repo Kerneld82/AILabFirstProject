@@ -26,7 +26,9 @@ def snow_flake(title, contents, url, sentiment, dates) :
     try :
         # Snowflake 연결 설정
         conn = sf.connect(
-            connection_name="myconnection",
+            account = KeyStore.SnowflakeAccount,
+            user = KeyStore.SnowflakeUser,
+            password = KeyStore.SnowflakePassword,
         )
         cursor = conn.cursor()
 
