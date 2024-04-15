@@ -43,11 +43,58 @@ pip install streamlit
 pip install snowflake-connector-python
 
 
-## 약간의 수정
+## 약간의 소스코드 수정
 
 * Crawling/TopCoinsByExchangeVolume.py -> crawlingTopCoinsByExchangeVolume() 함수에서 원하는 url 로 수정할것.
 
+
+## Snowflake 에서의 준비 작업
+
 * https://docs.snowflake.com/ko/developer-guide/python-connector/python-connector-connect 를 참고해서 %USERPROFILE%\AppData\Local\snowflake\connections.toml 파일 생성할것.
+
+[myconnection]
+
+account = "어카운트~"
+
+user = "아이디~"
+
+password = "패스워드~"
+
+* COINS DB 생성
+
+* TOPCOINSBYEXCHANGEVOLUME Schema 생성
+
+* TOPCOINSBYEXCHANGEVOLUME Table 생성
+
+create or replace TABLE COINS.TOPCOINSBYEXCHANGEVOLUME.TOPCOINSBYEXCHANGEVOLUME (
+
+	INPUTDATE TIMESTAMP_NTZ(9) NOT NULL,
+
+	RANK NUMBER(38,0) NOT NULL,
+
+	ICONURL VARCHAR(16777216),
+
+	NAME VARCHAR(16777216),
+
+	ABBRNAME VARCHAR(16777216),
+
+	PRICE VARCHAR(16777216),
+
+	ONEHOURDELTA VARCHAR(16777216),
+
+	ONEDAYDELTA VARCHAR(16777216),
+
+	SEVENDAYDELTA VARCHAR(16777216),
+
+	MARKETCAPITALIZATION VARCHAR(16777216),
+
+	EXCHANGEVOLUME VARCHAR(16777216),
+
+	CHARTURL VARCHAR(16777216),
+
+	primary key (INPUTDATE, RANK)
+
+);
 
 
 ## 실행 방법
