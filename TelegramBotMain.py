@@ -17,9 +17,10 @@ import snowflake.connector as sf
 import pandas as pd
 from gtts import gTTS
 import os
+from datetime import datetime, timedelta
 from KeyStore import KeyStore
 
-def snow_flake(title, contents, url, sentiment) :
+def snow_flake(title, contents, url, sentiment, dates) :
     
     # 아무것도 들어오지 않을때 예외처리
     try :
@@ -34,13 +35,16 @@ def snow_flake(title, contents, url, sentiment) :
         # 스테이지 생성
         cursor.execute("CREATE OR REPLACE STAGE MY_STAGE")
         # 테이블 생성
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS TEST7 (
-        title VARCHAR(16777216),
-        contents VARCHAR(16777216),
-        url VARCHAR(16777216),
-        sentiment VARCHAR(16777216)
-            )
+        i= 11
+        table_name = f"TEST{i}"
+        cursor.execute(f"""
+        CREATE TABLE IF NOT EXISTS {table_name} (
+            title VARCHAR(16777216),
+            contents VARCHAR(16777216),
+            date VARCHAR(16777216),
+            url VARCHAR(16777216),
+            sentiment VARCHAR(16777216)
+        )
         """)
         # 콤마 제거
         title = title.replace(',', ' ')
@@ -52,12 +56,12 @@ def snow_flake(title, contents, url, sentiment) :
         sentiment = sentiment.replace("'", ' ')
         # 데이터 삽입 쿼리 실행
         cursor.execute(f"""
-            MERGE INTO TEST7 AS target
+            MERGE INTO {table_name} AS target
             USING (SELECT '{url}' as url) AS source
             ON target.url = source.url
             WHEN NOT MATCHED THEN
-                INSERT (title, contents, url, sentiment)
-                VALUES ('{title}', '{contents}', '{url}', '{sentiment}')
+                INSERT (title, contents, date, sentiment, url)
+                VALUES ('{title}', '{contents}', '{dates}', '{sentiment}', '{url}')
         """)
 
 
@@ -93,8 +97,6 @@ async def tts_telegram_alert(message, sentiment):
             tts_text = "positive"
         else:
             tts_text = "neutral"
-        print(sentiment)
-        print(sentiment.split()[3][:-1])
         '''
         # TTS 생성
         tts = gTTS(text=tts_text, lang='en')  # 'en'는 한국어 설정입니다.
@@ -197,6 +199,7 @@ async def get_xangle_alerts():
         driver.get(url)
         title = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="__nuxt"]/div/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[1]/div/div[1]/div/p[2]'))).text
         content = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'detail-intelligence'))).text
+        date = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'date'))).text
         alert_link = url
         # 알람 텍스트 추출
         title_text = title.strip() if title else "No title found"
@@ -205,12 +208,8 @@ async def get_xangle_alerts():
         sentiment = analyze_sentiment(summary)
         
         # 하나의 문자열로 합치기
-        combined_alert = f"Title: {title_text}\n\nSummary: {summary}\n\n{sentiment}\n\nLink: {alert_link}"
-        '''# DataFrame 생성
-        df = pd.DataFrame({'제목': [title_text], '내용': [summary], 'URL': [alert_link], '감정': [sentiment]})
-        # CSV 파일로 저장
-        df.to_csv('alerts.csv', index=False)'''
-        snow_flake(title, summary, alert_link, sentiment)
+        combined_alert = f"Title: {title_text}\n\nSummary: {summary}\n\n{sentiment}\n\nLink: {alert_link}\n\n Dates: {date}"
+        snow_flake(title, summary, alert_link, sentiment, date)
         return combined_alert, sentiment, title_text
     except NoSuchElementException:
             print("Element not found")
@@ -236,8 +235,13 @@ async def get_naver_alerts():
         if alert_link :
             alert_link = alert_link.get('href')
         # 하나의 문자열로 합치기
+        time = soup.select_one('#sp_nws1 > div > div > div.news_info > div.info_group > span')
+        current_time = datetime.now()
+        min=time.text[0]
+        adjusted_time = current_time - timedelta(minutes=int(min))
+        date = adjusted_time.strftime('%Y-%m-%d %H:%M')
         combined_alert = f"Title: {title_text}\n\nSummary: {summary}\n\n{sentiment}\n\nLink: {alert_link}"
-        snow_flake(title_text, summary, alert_link, sentiment)
+        snow_flake(title_text, summary, alert_link, sentiment, date)
         return combined_alert, sentiment, title_text
     except NoSuchElementException:
             print("Element not found")
@@ -255,17 +259,20 @@ async def get_coinness_alerts():
         title = soup.select_one('#main_list_wrap > div > div > div.list_left_item > div:nth-child(1) > div.list_item_content > div.list_item_text > div > a')
         content = soup.select_one('#main_list_wrap > div > div > div.list_left_item > div:nth-child(1) > div.list_item_content > div.list_item_text > a > p')
         alert_link = soup.select_one('#main_list_wrap > div > div > div.list_left_item > div:nth-child(1) > div.list_item_content > div.list_item_text > a')
+        date = soup.select_one('#main_list_wrap > div > div > div.list_left_item > div:nth-child(1) > div.list_item_content > div.list_item_write > div.date_item > span').get_text(strip=True)
+
         # 알람 텍스트 추출
         title_text = title.text.strip() if title else "No title found"
         content_text = content.text.strip() if content else "No content found"
         summary = summarize_text(title_text, content_text)
         sentiment = analyze_sentiment(summary)
-        
         if alert_link :
             alert_link = alert_link.get('href')
-        snow_flake(title_text, summary, alert_link, sentiment)
+        full_link = KeyStore.TokenPostUrl+alert_link
+        snow_flake(title_text, summary, full_link, sentiment, date)
+        
         # 하나의 문자열로 합치기
-        combined_alert = f"Title: {title_text}\n\nSummary: {summary}\n\n{sentiment}\n\nLink: {KeyStore.TokenPostUrl}{alert_link}"
+        combined_alert = f"Title: {title_text}\n\nSummary: {summary}\n\n{sentiment}\n\nLink: {full_link} "
         return combined_alert, sentiment, title_text
     except NoSuchElementException:
             print("Element not found")
@@ -312,4 +319,3 @@ async def main():
         await asyncio.sleep(3)
 if __name__ == "__main__":
     asyncio.run(main())
-    
