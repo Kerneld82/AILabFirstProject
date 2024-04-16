@@ -49,6 +49,10 @@ pip install pyldavis
 pip install scipy==1.12
 pip install pyglet
 pip install gtts
+pip install seaborn
+pip install plotly
+pip install umap
+pip install streamlit-tensorboard
 ```
 
 ## 약간의 소스코드 수정
