@@ -53,6 +53,9 @@ pip install seaborn
 pip install plotly
 pip install umap
 pip install streamlit-tensorboard
+pip install langchain
+pip install langchain-openai
+pip install langserve
 ```
 
 ## 약간의 소스코드 수정

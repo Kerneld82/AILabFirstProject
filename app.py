@@ -172,6 +172,8 @@ all_words = [word for sublist in data['tokenized_content'] for word in sublist]
 st.sidebar.title("메뉴")
 page = st.sidebar.radio("페이지 선택", ["가상화폐 및 블록체인 뉴스 분석", "상세 분석", "국내 5대 거래소에서의 거래량 Top20"])
 
+st.sidebar.page_link("pages/streamlit_langchain.py", label="LangChain")
+
 if page == "가상화폐 및 블록체인 뉴스 분석":
     st.title("가상화폐 및 블록체인 뉴스 분석")
     st.write("이 대시보드는 가상화폐 및 블록체인에 대한 뉴스 기사를 분석하여 시각화합니다.")
