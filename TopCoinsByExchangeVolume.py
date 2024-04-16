@@ -135,3 +135,32 @@ def getTopCoinsByExchangeVolume_DB():
         return None
     
     return None
+
+def showTopCoinsByExchangeVolume():
+    st.title('국내 5대 거래소에서의 거래량 Top20')
+
+    sourceType = st.sidebar.radio("소스 유형", ["DB", "WebAPI"])
+    
+    df = None
+    
+    if sourceType == "DB":
+        df = getTopCoinsByExchangeVolume_DB()
+    elif sourceType == "WebAPI":
+        df = getTopCoinsByExchangeVolume_WebApi()
+
+    if df is not None:
+        st.dataframe(
+            df,
+            use_container_width = True,
+            column_config = {
+                "아이콘" : st.column_config.ImageColumn(
+                    "아이콘", help="Streamlit app preview screenshots"
+                ),
+                "최근 7일" : st.column_config.ImageColumn(
+                    "최근 7일", help="Streamlit app preview screenshots"
+                ),
+            },
+            hide_index = True,
+        )
+    else:
+        st.subheader('조금뒤에 다시 시도해주세요.')

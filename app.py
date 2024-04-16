@@ -22,8 +22,8 @@ import os
 from streamlit_tensorboard import st_tensorboard
 import tensorflow as tf
 from tensorboard.plugins import projector
-from TopCoinsByExchangeVolume import getTopCoinsByExchangeVolume_WebApi
-from TopCoinsByExchangeVolume import getTopCoinsByExchangeVolume_DB
+from TopCoinsByExchangeVolume import showTopCoinsByExchangeVolume
+from CoinSpecificSearch import showCoinSpecificSearch
 
 st.set_page_config(
     page_title="프로젝트팀 10조",
@@ -170,11 +170,15 @@ data = pd.read_parquet('tokenized_data.parquet')
 all_words = [word for sublist in data['tokenized_content'] for word in sublist]
 # 사이드 바
 st.sidebar.title("메뉴")
-page = st.sidebar.radio("페이지 선택", ["가상화폐 및 블록체인 뉴스 분석", "상세 분석", "국내 5대 거래소에서의 거래량 Top20"])
+page = st.sidebar.radio("페이지 선택", ["국내 5대 거래소에서의 거래량 Top20 및 코인 상세 검색", "가상화폐 및 블록체인 뉴스 분석", "상세 분석"])
 
 st.sidebar.page_link("pages/streamlit_langchain.py", label="LangChain")
 
-if page == "가상화폐 및 블록체인 뉴스 분석":
+if page == "국내 5대 거래소에서의 거래량 Top20 및 코인 상세 검색":
+    showTopCoinsByExchangeVolume()
+    showCoinSpecificSearch()
+
+elif page == "가상화폐 및 블록체인 뉴스 분석":
     st.title("가상화폐 및 블록체인 뉴스 분석")
     st.write("이 대시보드는 가상화폐 및 블록체인에 대한 뉴스 기사를 분석하여 시각화합니다.")
     
@@ -307,31 +311,3 @@ elif page == "상세 분석":
         # st.plotly_chart(fig, use_container_width=True)
 
         # st.write("Word2Vec 모델을 사용하여 단어 임베딩 시각화.")
-elif page == "국내 5대 거래소에서의 거래량 Top20":
-    st.title('국내 5대 거래소에서의 거래량 Top20')
-
-    sourceType = st.sidebar.radio("소스 유형", ["DB", "WebAPI"])
-    
-    df = None
-    
-    if sourceType == "DB":
-        df = getTopCoinsByExchangeVolume_DB()
-    elif sourceType == "WebAPI":
-        df = getTopCoinsByExchangeVolume_WebApi()
-
-    if df is not None:
-        st.dataframe(
-            df,
-            use_container_width = True,
-            column_config = {
-                "아이콘" : st.column_config.ImageColumn(
-                    "아이콘", help="Streamlit app preview screenshots"
-                ),
-                "최근 7일" : st.column_config.ImageColumn(
-                    "최근 7일", help="Streamlit app preview screenshots"
-                ),
-            },
-            hide_index = True,
-        )
-    else:
-        st.subheader('조금뒤에 다시 시도해주세요.')

@@ -18,7 +18,7 @@ dksjj123@gmail.com
  - Snowflake DB 연동
 
 cchok0330@naver.com
- - 
+ - 코인 상세 검색 웹 페이지 개발
  
 kerneld@naver.com
  - 거래량 Top20 코인에 대해 크롤링, WebAPI, 웹 페이지 개발
