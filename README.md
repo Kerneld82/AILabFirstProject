@@ -8,17 +8,20 @@
 
 ```
 sarakael715@gmail.com
- - 가상화폐 및 블록체인 뉴스 분석 페이지
- - 상세 분석 페이지
+ - 뉴스 및 지식 데이터 크롤링
+ - 자연어 처리 분석페이지 담당
+ - NLP & LangChain 서버구축 및 호스팅
 
 dksjj123@gmail.com
- - 텔레그램 봇
+ - Xangle, Naver 크롤링
+ - TTS
+ - Snowflake DB 연동
 
 cchok0330@naver.com
  - 
  
 kerneld@naver.com
- - 국내 5대 거래소에서의 거래량 Top20 페이지
+ - 거래량 Top20 코인에 대해 크롤링, WebAPI, 웹 페이지 개발
 ```
 
 ## Web API 목록
