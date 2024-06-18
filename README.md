@@ -104,3 +104,5 @@ python TelegramBotMain.py
 ### WebAPI, 웹 스크래핑
 python FastApiMain.py
 
+### WebAPI 목록
+http://127.0.0.1:8000/docs
